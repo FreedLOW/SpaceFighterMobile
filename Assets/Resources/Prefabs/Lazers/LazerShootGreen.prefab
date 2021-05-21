@@ -258,7 +258,7 @@ MonoBehaviour:
     type: 3}
   asteroidExplosion: {fileID: 4140951970015774522, guid: 0ceb8912e0bab754a8ce2849c43d2bf6,
     type: 3}
-  speed: 30
+  speed: 25
 --- !u!1001 &7692214953915256554
 PrefabInstance:
   m_ObjectHideFlags: 0

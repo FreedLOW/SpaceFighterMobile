@@ -12,11 +12,12 @@ public class EnemyLazerBombBehaviour : MonoBehaviour
 
     private void Start()
     {
+        thisRgb = GetComponent<Rigidbody>();
+
         if(TryGetComponent(out BossScript bossScript))  //пытаюсь на сцене найти босса
             boss = FindObjectOfType<BossScript>().gameObject;
         if (boss != null)
             thisRgb.rotation = boss.transform.rotation;
-            //transform.rotation = boss.transform.localRotation;
     }
 
     private void FixedUpdate()

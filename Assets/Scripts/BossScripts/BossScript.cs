@@ -90,7 +90,7 @@ public class BossScript : MonoBehaviour, IDestructable
 
     public void CheckTarget()
     {
-        for(int i=0; i < gun.Length; i++)
+        for (int i = 0; i < gun.Length; i++)
         {
             if (target != null)
             {

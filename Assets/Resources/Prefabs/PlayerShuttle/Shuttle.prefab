@@ -48028,10 +48028,8 @@ MonoBehaviour:
   miniGunR: {fileID: 2118822871816588045}
   miniGunL: {fileID: 2118822872403526092}
   shotDelay: 0.8
-  damageLazerL: 10
-  damageLazerR: 10
-  auxiliaryLazerL: 5
-  auxiliaryLazerR: 5
+  damageLazer: 5
+  damageAuxiliaryLazer: 2
 --- !u!1 &2118822872403526092
 GameObject:
   m_ObjectHideFlags: 0

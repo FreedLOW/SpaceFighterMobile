@@ -23,7 +23,7 @@ public class PlayerSpaceSript : MonoBehaviour
     public float shotDelay;  //задержка между выстрелами
     private float nextShot; //переменная для определения времени между выстрелами
     
-    public float damageLazerL, damageLazerR, auxiliaryLazerL, auxiliaryLazerR;
+    public float damageLazer, damageAuxiliaryLazer;
 
     private float moveHorizontal, moveVertical;
 
@@ -83,8 +83,8 @@ public class PlayerSpaceSript : MonoBehaviour
             GameObject lazerL = Instantiate(lazerShotPrefab, lazerGunL.transform.position, Quaternion.identity);
             nextShot = Time.time + shotDelay;  //переставляем время следующего выстрела
 
-            lazerL.GetComponent<LazerScript>().Damage = damageLazerL / 2;
-            lazerR.GetComponent<LazerScript>().Damage = damageLazerR / 2;
+            lazerL.GetComponent<LazerScript>().Damage = damageLazer;
+            lazerR.GetComponent<LazerScript>().Damage = damageLazer;
         }
     }
 
@@ -96,8 +96,8 @@ public class PlayerSpaceSript : MonoBehaviour
             GameObject lazerL = Instantiate(miniLazerShotPrefab, miniGunL.transform.position, Quaternion.identity);
             nextShot = Time.time + shotDelay;
 
-            lazerL.GetComponent<LazerScript>().Damage = auxiliaryLazerL / 2;
-            lazerR.GetComponent<LazerScript>().Damage = auxiliaryLazerR / 2;
+            lazerL.GetComponent<LazerScript>().Damage = damageAuxiliaryLazer;
+            lazerR.GetComponent<LazerScript>().Damage = damageAuxiliaryLazer;
         }
     }
 

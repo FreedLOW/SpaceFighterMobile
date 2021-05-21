@@ -131,7 +131,7 @@ MonoBehaviour:
     type: 3}
   asteroidExplosion: {fileID: 4140951970015774522, guid: 0ceb8912e0bab754a8ce2849c43d2bf6,
     type: 3}
-  speed: 40
+  speed: 30
 --- !u!54 &7692214954459661028
 Rigidbody:
   m_ObjectHideFlags: 0
