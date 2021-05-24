@@ -26,7 +26,8 @@ public class MenuControllers : MonoBehaviour
 
     private void Awake()
     {
-        _instance = this;
+        if (_instance == null)
+            _instance = this;
         
         GameController.Instance.State = GameState.Play;
 
@@ -97,7 +98,6 @@ public class MenuControllers : MonoBehaviour
     public void ExitPressed()
     {
         Application.Quit();
-        Debug.Log("ExitPressed!");  //проверяю сработает ли этот метод, т.к. он комплитися ток в билде, использую дебаг
     }
 
     //метод настройки громкости музыки:

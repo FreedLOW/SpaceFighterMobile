@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
+using TMPro;
 
 public class HUD : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class HUD : MonoBehaviour
     public static int secondsP;
     public Text[] minutes;
     public Text[] seconds;
+    //[SerializeField] TMP_Text[] minutes;
+    //[SerializeField] TMP_Text[] seconds;
 
     public Slider m_MusicSlider;  //тут хранится слайдер регулировки громкости музыки
 
@@ -29,6 +32,7 @@ public class HUD : MonoBehaviour
     public GameObject pauseButton;
 
     [SerializeField] private Text[] scoreText;  //тут хранятся текстовые поля очков
+    //[SerializeField] private TMP_Text[] scoreText;
 
     int score = 0;  //переменная для подсчёта очков
 
@@ -41,7 +45,8 @@ public class HUD : MonoBehaviour
 
     private void Awake()
     {
-        _instance = this;
+        if (_instance == null)
+            _instance = this;
 
         SetResolutions();
 

@@ -48015,9 +48015,9 @@ MonoBehaviour:
   shield: {fileID: 7588004030580359924}
   speed: 25
   tilt: 0.8
-  xMin: -64
-  xMax: 61
-  zMin: -65
+  xMin: -90
+  xMax: 88
+  zMin: -68
   zMax: 20
   lazerShotPrefab: {fileID: 7692214954459661029, guid: ef2e75956b7238c4693fd470593bf64f,
     type: 3}

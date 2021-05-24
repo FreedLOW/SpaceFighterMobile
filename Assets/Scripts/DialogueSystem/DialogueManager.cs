@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 using UnityEngine;
-using System;
 
 public class DialogueManager : MonoBehaviour
 {
-    public Text dialogueText;  //тут хранится поле текста диалога
+    public TMP_Text dialogueText;  //тут хранится поле текста диалога
 
     public Dialogue dialogue;
 
     private Queue<string> sentences;  //создаю очередь(Queue) из предложений
 
-    public Button buttonText;
+    public Button controllButton;
+    private TextMeshProUGUI buttonText;
 
     public Animator loadAnim;
 
@@ -22,6 +23,8 @@ public class DialogueManager : MonoBehaviour
         GameController.Instance.State = GameState.Play;
 
         sentences = new Queue<string>();  //создаю экземпляр класса Queue
+
+        buttonText = controllButton.GetComponent<TextMeshProUGUI>();
 
         StartDialogue(dialogue);
     }
@@ -46,11 +49,11 @@ public class DialogueManager : MonoBehaviour
             return;
         }
         else if (sentences.Count == 2)  //если предложений осталось 2, то:
-            dialogueText.alignment = TextAnchor.UpperLeft;  //выравнивание текста ставлю по верхнему левому краю
+            dialogueText.alignment = TextAlignmentOptions.TopLeft;  //выравнивание текста ставлю по верхнему левому краю
         else if (sentences.Count == 1)  //если осталось 1 предложение, то:
         {
-            dialogueText.alignment = TextAnchor.UpperRight;  //выравниваю текст предложения по верхнему правому краю
-            buttonText.GetComponentInChildren<Text>().text = "Play";  //нахожу у ребёнка кнопки компонент текст и присваиваю ему новое значение
+            dialogueText.alignment = TextAlignmentOptions.TopRight;  //выравниваю текст предложения по верхнему правому краю
+            controllButton.GetComponentInChildren<TMP_Text>().text = "Play";  //нахожу у ребёнка кнопки компонент текст и присваиваю ему новое значение
         }
 
         string sentence = sentences.Dequeue();  //очищаю очередь в предложениях диалога с помощью метода - Dequeue
@@ -68,13 +71,13 @@ public class DialogueManager : MonoBehaviour
             return;
         }
         else if (sentences.Count == 3)  //если предложений осталось 2, то:
-            dialogueText.alignment = TextAnchor.UpperRight;  //выравнивание текста ставлю по верхнему левому краю
+            dialogueText.alignment = TextAlignmentOptions.TopRight;  //выравнивание текста ставлю по верхнему левому краю
         else if (sentences.Count == 2)  //если осталось 1 предложение, то:
-            dialogueText.alignment = TextAnchor.UpperLeft;  //выравниваю текст предложения по верхнему правому краю
+            dialogueText.alignment = TextAlignmentOptions.TopLeft;  //выравниваю текст предложения по верхнему правому краю
         else if (sentences.Count == 1)
         {
-            dialogueText.alignment = TextAnchor.UpperRight;
-            buttonText.GetComponentInChildren<Text>().text = "Play";  //нахожу у ребёнка кнопки компонент текст и присваиваю ему новое значение
+            dialogueText.alignment = TextAlignmentOptions.TopRight;
+            controllButton.GetComponentInChildren<TMP_Text>().text = "Play";  //нахожу у ребёнка кнопки компонент текст и присваиваю ему новое значение
         }
 
         string sentence = sentences.Dequeue();  //очищаю очередь в предложениях диалога с помощью метода - Dequeue
@@ -92,15 +95,15 @@ public class DialogueManager : MonoBehaviour
             return;
         }
         else if (sentences.Count == 4)  //если предложений осталось 2, то:
-            dialogueText.alignment = TextAnchor.UpperRight;  //выравнивание текста ставлю по верхнему левому краю
+            dialogueText.alignment = TextAlignmentOptions.TopRight;  //выравнивание текста ставлю по верхнему левому краю
         else if (sentences.Count == 3)  //если осталось 1 предложение, то:
-            dialogueText.alignment = TextAnchor.UpperLeft;  //выравниваю текст предложения по верхнему правому краю
+            dialogueText.alignment = TextAlignmentOptions.TopLeft;  //выравниваю текст предложения по верхнему правому краю
         else if (sentences.Count == 2)
-            dialogueText.alignment = TextAnchor.UpperRight;
+            dialogueText.alignment = TextAlignmentOptions.TopRight;
         else if (sentences.Count == 1)
         {
-            dialogueText.alignment = TextAnchor.UpperLeft;
-            buttonText.GetComponentInChildren<Text>().text = "Play";  //нахожу у ребёнка кнопки компонент текст и присваиваю ему новое значение
+            dialogueText.alignment = TextAlignmentOptions.TopLeft;
+            controllButton.GetComponentInChildren<TMP_Text>().text = "Play";  //нахожу у ребёнка кнопки компонент текст и присваиваю ему новое значение
         }
 
         string sentence = sentences.Dequeue();  //очищаю очередь в предложениях диалога с помощью метода - Dequeue
@@ -118,7 +121,7 @@ public class DialogueManager : MonoBehaviour
         foreach(char letter in sentence.ToCharArray())  //перебираю символы в предложениях диалога конвертируя их в массив символов
         {
             dialogueText.text += letter;  //добавляю каждую букву
-            yield return null;  //никакой задержки не делаю
+            yield return new WaitForSeconds(.03f);  //никакой задержки не делаю
         }
     }
 
