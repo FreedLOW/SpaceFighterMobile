@@ -206,11 +206,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 237175726}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0ac1e38ad4e75c44afdb745d642b03d, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e6497e297ff03643a6f6cbf981b1cdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bonus: {fileID: 6479058464506273194, guid: 737315251d646ee43b81306a761229c6, type: 3}
-  EnemyShips:
+  enemyShips:
   - {fileID: 1244317235017369125, guid: 93440701d0655a143bf818310dfeb1f2, type: 3}
   - {fileID: 66001518486726724, guid: a1e96ed41722cee41aa44ca4e4f1b329, type: 3}
   asteroids:
@@ -219,11 +219,11 @@ MonoBehaviour:
   - {fileID: 4835710605634712558, guid: 089cc50bda8109243b5870af388df4f8, type: 3}
   - {fileID: 2305308017368375426, guid: 164ef0b2a01e71f4588d76a4c6d17208, type: 3}
   - {fileID: 996878229072399621, guid: fa11ef1570bd1ef4d8ce2e04f3516dd7, type: 3}
-  minDelay: 2
-  maxDelay: 5
-  minEnemyDelay: 4
-  maxEnemyDalay: 8
-  minBonusDelay: 18
+  minAsteroidDelay: 1
+  maxAsteroidDelay: 3.5
+  minEnemyDelay: 2
+  maxEnemyDalay: 6
+  minBonusDelay: 20
   maxBonusDelay: 25
 --- !u!23 &237175728
 MeshRenderer:
@@ -539,7 +539,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -737,18 +737,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1274617439}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1390891330 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1683292844843496859, guid: 71dbc8054ee63f8468e5d3b456985897,
-    type: 3}
-  m_PrefabInstance: {fileID: 168876735747846574}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!225 &1452872133 stripped
 CanvasGroup:
   m_CorrespondingSourceObject: {fileID: 2826914650125264674, guid: 71dbc8054ee63f8468e5d3b456985897,
@@ -845,18 +833,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1852605939 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1553203457190648519, guid: 71dbc8054ee63f8468e5d3b456985897,
-    type: 3}
-  m_PrefabInstance: {fileID: 168876735747846574}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1949278454
 GameObject:
   m_ObjectHideFlags: 0
@@ -886,7 +862,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.043137256, g: 0.23529413, b: 0.26666668, a: 1}
-  m_Intensity: 1.5
+  m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -925,7 +901,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -1038,7 +1014,7 @@ Transform:
   m_GameObject: {fileID: 2059809877}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 15, y: 1, z: 15}
+  m_LocalScale: {x: 20, y: 1, z: 20}
   m_Children:
   - {fileID: 1274617440}
   m_Father: {fileID: 0}
@@ -1212,17 +1188,17 @@ PrefabInstance:
         type: 3}
       propertyPath: timer
       value: 
-      objectReference: {fileID: 1852605939}
+      objectReference: {fileID: 0}
     - target: {fileID: 168876736679417205, guid: 71dbc8054ee63f8468e5d3b456985897,
         type: 3}
       propertyPath: timeMin
       value: 
-      objectReference: {fileID: 1390891330}
+      objectReference: {fileID: 0}
     - target: {fileID: 168876736679417205, guid: 71dbc8054ee63f8468e5d3b456985897,
         type: 3}
       propertyPath: timeSec
       value: 
-      objectReference: {fileID: 1852605939}
+      objectReference: {fileID: 0}
     - target: {fileID: 168876736679417208, guid: 71dbc8054ee63f8468e5d3b456985897,
         type: 3}
       propertyPath: m_Name
@@ -1333,6 +1309,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 336836958919803615, guid: 71dbc8054ee63f8468e5d3b456985897,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 89.61499
+      objectReference: {fileID: 0}
     - target: {fileID: 449813909350685582, guid: 71dbc8054ee63f8468e5d3b456985897,
         type: 3}
       propertyPath: m_Alpha
@@ -1378,6 +1359,21 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: AuxiliaryGunShoot
       objectReference: {fileID: 0}
+    - target: {fileID: 828573565721863362, guid: 71dbc8054ee63f8468e5d3b456985897,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 828573565721863362, guid: 71dbc8054ee63f8468e5d3b456985897,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 828573565721863362, guid: 71dbc8054ee63f8468e5d3b456985897,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1522286600131913002, guid: 71dbc8054ee63f8468e5d3b456985897,
         type: 3}
       propertyPath: m_MinValue
@@ -1438,6 +1434,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3699079169858481518, guid: 71dbc8054ee63f8468e5d3b456985897,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3699079169858481518, guid: 71dbc8054ee63f8468e5d3b456985897,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5011113162245819548, guid: 71dbc8054ee63f8468e5d3b456985897,
         type: 3}
       propertyPath: m_MinValue
@@ -1477,6 +1483,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5949071612054292838, guid: 71dbc8054ee63f8468e5d3b456985897,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5949071612054292838, guid: 71dbc8054ee63f8468e5d3b456985897,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6335070544908481650, guid: 71dbc8054ee63f8468e5d3b456985897,
         type: 3}
@@ -1543,6 +1559,21 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 1452872133}
+    - target: {fileID: 6923203612092691968, guid: 71dbc8054ee63f8468e5d3b456985897,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6923203612092691968, guid: 71dbc8054ee63f8468e5d3b456985897,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6923203612092691968, guid: 71dbc8054ee63f8468e5d3b456985897,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7044500953268681761, guid: 71dbc8054ee63f8468e5d3b456985897,
         type: 3}
       propertyPath: m_IsActive
@@ -1890,7 +1921,7 @@ PrefabInstance:
     - target: {fileID: 5141831319447308710, guid: 66d841d96d6f0e74dbed7d74f2daea15,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5141831319447308716, guid: 66d841d96d6f0e74dbed7d74f2daea15,
         type: 3}

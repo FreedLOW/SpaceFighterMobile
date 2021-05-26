@@ -9861,14 +9861,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeed: 15
-  maxSpeed: 25
+  maxSpeed: 28
   EnemyExplosions: {fileID: 4409592602797197684, guid: e8620f377f16de6478f0ab50edf19a07,
     type: 3}
   lazerShot: {fileID: 2998236635831735950, guid: f676f9e9e00acb34ba8b3219b70f4104,
     type: 3}
   lazerEnemyR: {fileID: 6318825951796386870}
   lazerEnemyL: {fileID: 7011838672624298507}
-  shootDelay: 1.3
+  shootDelay: 1.5
 --- !u!1 &2684702839077013738
 GameObject:
   m_ObjectHideFlags: 0

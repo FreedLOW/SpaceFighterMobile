@@ -14,17 +14,18 @@ public class EnemyLazerBombBehaviour : MonoBehaviour
     {
         thisRgb = GetComponent<Rigidbody>();
 
-        if(TryGetComponent(out BossScript bossScript))  //пытаюсь на сцене найти босса
-            boss = FindObjectOfType<BossScript>().gameObject;
-        if (boss != null)
+        boss = ObjectsHandler.objRef["BossEnemy"];
+        if (boss.activeInHierarchy == true)
             thisRgb.rotation = boss.transform.rotation;
+
+        if (!boss.activeInHierarchy)
+            thisRgb.velocity = Vector3.back * speed;
     }
 
     private void FixedUpdate()
     {
-        if (boss != null)
-            transform.position += transform.forward * speed * Time.deltaTime;
-        else transform.position += -transform.forward * speed * Time.deltaTime;
+        if (boss.activeInHierarchy)
+            thisRgb.position += (transform.forward * speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -46,6 +47,7 @@ public class EnemyLazerBombBehaviour : MonoBehaviour
             Destroy(other.gameObject);  //чничтожаем то с чем столкнулись (игрока)
             Destroy(gameObject);  //уничтожаею лазерный выстрел
             HUD.Instance.ShowWindow(HUD.Instance.levelLoseWindow);
+            ObjectsHandler.objRef.Remove("BossEnemy");  //когда игрок уничтожен, удаляю босса из коллекции
         }
     }
 }

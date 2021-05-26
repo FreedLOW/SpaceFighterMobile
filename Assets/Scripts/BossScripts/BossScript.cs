@@ -27,6 +27,15 @@ public class BossScript : MonoBehaviour, IDestructable
     public float hitPoints;  //колличество жизни
     private float hitPointsCurrent;  //текущее колличество жизней
 
+    GameObject boss;
+
+    private void Awake()
+    {
+        ObjectsHandler.AddRef("BossEnemy", gameObject);  //добавляю объект босса в коллекцию
+        boss = ObjectsHandler.objRef["BossEnemy"];  //присваиваю к переменной этот объект(босса)
+        boss.SetActive(false);  //дезактивирую его
+    }
+
     private void Start()
     {
         hitPointsCurrent = hitPoints;  //приравнюю колличество к текущему
@@ -48,6 +57,7 @@ public class BossScript : MonoBehaviour, IDestructable
         if (target != null)
         {
             _navmeshagant.SetDestination(target.position);
+            transform.LookAt(target);
         }
         
         CheckTarget();
@@ -122,6 +132,7 @@ public class BossScript : MonoBehaviour, IDestructable
             Destroy(gameObject);  //чничтожаю объект на котором этот скрипт
             HUD.Instance.UpdateScore(50);  //добавляю 50 очков
             HUD.Instance.ShowWindow(HUD.Instance.levelCompletedWindow);  //открываю окно что уровень пройден
+            ObjectsHandler.objRef.Remove("BossEnemy");  //когда босс уничтожен, удаляю его из коллекции
         }
     }
 }

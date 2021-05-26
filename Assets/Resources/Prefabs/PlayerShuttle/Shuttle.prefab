@@ -48013,7 +48013,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shield: {fileID: 7588004030580359924}
-  speed: 25
   tilt: 0.8
   xMin: -90
   xMax: 88
@@ -48030,6 +48029,9 @@ MonoBehaviour:
   shotDelay: 0.8
   damageLazer: 5
   damageAuxiliaryLazer: 2
+  speedJoystick: 30
+  speedAcceleration: 40
+  callibrateRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2118822872403526092
 GameObject:
   m_ObjectHideFlags: 0

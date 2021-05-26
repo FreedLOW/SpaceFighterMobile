@@ -1,15 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerSpaceSript : MonoBehaviour
 {
-    Joystick joystick;  //переменная в которой хранится джойстик управления
-
     public GameObject shield;  //тут хранится объект щит
 
     private Rigidbody ship;  //объявление переменной корабля
-    public float speed;  //объявление переменной скорости корабля, её можно менять в самом юнити
+
     public float tilt; //коэфициент поворота
     public float xMin, xMax, zMin, zMax;  //переменный регулировки перемещения корабля, т.е в каком диапазоне он может двигаться на карте
 
@@ -25,7 +21,16 @@ public class PlayerSpaceSript : MonoBehaviour
     
     public float damageLazer, damageAuxiliaryLazer;
 
+    private float positionX, positionY, positionZ;
+
+    //управление с помощью джойстика:
+    Joystick joystick;  //переменная в которой хранится джойстик управления
     private float moveHorizontal, moveVertical;
+    public float speedJoystick;  //объявление переменной скорости корабля, её можно менять в самом юнити
+
+    //управление с помощью акселирометра:
+    public float speedAcceleration;  //скорость движения коробля при управлении через акселерометр
+    public Quaternion callibrateRotation;
 
     void Start()
     {
@@ -35,26 +40,96 @@ public class PlayerSpaceSript : MonoBehaviour
 
         moveHorizontal = 0f;
         moveVertical = 0f;
+
+        CalibrateAcceleration();
     }
 
     void FixedUpdate()
     {
-        MovementShip();
+        AccelerationMovment();
+        //MovementShipAcceleration();
+        
+        //MovementShipJoystick();
     }
 
-    private void MovementShip()
+    void AreaLimitation()
     {
-        //moveHorizontal = joystick.Horizontal * speed;  //создаётся переменная в которой определяется куда будет двигаться объект по горизонтале и с какой скоростью
-        //moveVertical = joystick.Vertical * speed;  //тоже самое, но по вертикале
+        //ограничиваем зону полёта коробля, т.е. за какие пределы он не вылетит
+        positionX = Mathf.Clamp(ship.position.x, xMin, xMax);
+        positionZ = Mathf.Clamp(ship.position.z, zMin, zMax);
+        positionY = ship.position.y;  //ось у никак не надо ограничивать поэтому пишеться так
+
+        //теперь ограниченую позицию нужно положить обратно к кораблю
+        ship.position = new Vector3(positionX, positionY, positionZ);
+    }
+
+    void CalibrateAcceleration()
+    {
+        //получаю данные с акселерометра и записываю в переменную:
+        Vector3 accelerationSnapshot = Input.acceleration;
+
+        //поварачиваем телефон из положения лицом вверх в положение полученое от акселерометра. Функция возвращает координаты положения телефона в пространстве типа Quaternion(т.е. положение телефона)
+        Quaternion rotationPhone = Quaternion.FromToRotation(new Vector3(0, 0, -1), accelerationSnapshot);
+
+        //инверсирую значение оси:
+        callibrateRotation = Quaternion.Inverse(rotationPhone);
+    }
+
+    Vector3 FixAcceleration(Vector3 acceleration)
+    {
+        //умножаем стартовое положение телефона на текущее и получаем текущее положение телефона с учётом колибровки:
+        Vector3 fixedAcceleration = callibrateRotation * acceleration;
+        return fixedAcceleration;
+    }
+
+    void AccelerationMovment()
+    {
+        //проверка положения телефона в пространстве:
+        Vector3 accelerationRaw = Input.acceleration;
+
+        //получаем координаты текущего положения телефона относительно стартового положения:
+        Vector3 acceleration = FixAcceleration(accelerationRaw);
+
+        ship.rotation = Quaternion.Euler(ship.velocity.z * tilt, 0, -ship.velocity.x * tilt);  //реализация наклона по осям
+
+        ship.velocity = new Vector3(acceleration.x, 0f, acceleration.y) * speedJoystick;  //передвижение
+
+        AreaLimitation();
+    }
+
+    private void MovementShipAcceleration()
+    {
+        Vector3 direction = Vector3.zero;
+
+        direction.x = -Input.acceleration.y;
+        direction.z = Input.acceleration.x;
+
+        if (direction.sqrMagnitude > 1)
+            direction.Normalize();
+
+        //direction *= Time.deltaTime;
+
+        ship.velocity = direction * speedJoystick;
+        
+        //настройка наклона коробля при поворотах и движений вперёд и назад
+        ship.rotation = Quaternion.Euler(ship.velocity.z * tilt, 0, -ship.velocity.x * tilt);  //реализация наклона по осям
+
+        AreaLimitation();
+    }
+
+    private void MovementShipJoystick()
+    {
+        //moveHorizontal = joystick.Horizontal * speedJoystick;  //создаётся переменная в которой определяется куда будет двигаться объект по горизонтале и с какой скоростью
+        //moveVertical = joystick.Vertical * speedJoystick;  //тоже самое, но по вертикале
 
         if (joystick.Horizontal >= .5f)
-            moveHorizontal = speed;
+            moveHorizontal = speedJoystick;
         else if (joystick.Horizontal <= -.5f)
-            moveHorizontal = -speed;
+            moveHorizontal = -speedJoystick;
         else if (joystick.Vertical >= .5f)
-            moveVertical = speed;
+            moveVertical = speedJoystick;
         else if (joystick.Vertical <= -.5f)
-            moveVertical = -speed;
+            moveVertical = -speedJoystick;
         else
         {
             moveHorizontal = 0f;
@@ -66,13 +141,7 @@ public class PlayerSpaceSript : MonoBehaviour
         //настройка наклона коробля при поворотах и движений вперёд и назад
         ship.rotation = Quaternion.Euler(ship.velocity.z * tilt, 0, -ship.velocity.x * tilt);  //реализация наклона по осям
 
-        //ограничиваем зону полёта коробля, т.е. за какие пределы он не вылетит
-        var positionX = Mathf.Clamp(ship.position.x, xMin, xMax);
-        var positionZ = Mathf.Clamp(ship.position.z, zMin, zMax);
-        var positionY = ship.position.y;  //ось у никак не надо ограничивать поэтому пишеться так
-
-        //теперь ограниченую позицию нужно положить обратно к кораблю
-        ship.position = new Vector3(positionX, positionY, positionZ);
+        AreaLimitation();
     }
 
     public void MainGunShoot()  //реализация выстрела из основного орудия

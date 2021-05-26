@@ -40,6 +40,7 @@ public class AsteroidScript : MonoBehaviour
             Instantiate(shipExsplosions, transform.position, Quaternion.identity);
             Instantiate(asteroidExsplosion, transform.position, Quaternion.identity);  //создаём взрыв астероида
             HUD.Instance.ShowWindow(HUD.Instance.levelLoseWindow);
+            ObjectsHandler.objRef.Remove("BossEnemy");  //когда игрок уничтожен, удаляю босса из коллекции
         }
         else
         {

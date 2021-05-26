@@ -13,10 +13,8 @@ public class HUD : MonoBehaviour
     private float timeInSecondsP;
     public static int minutsP;
     public static int secondsP;
-    public Text[] minutes;
-    public Text[] seconds;
-    //[SerializeField] TMP_Text[] minutes;
-    //[SerializeField] TMP_Text[] seconds;
+    [SerializeField] TMP_Text[] minutes = null;
+    [SerializeField] TMP_Text[] seconds = null;
 
     public Slider m_MusicSlider;  //тут хранится слайдер регулировки громкости музыки
 
@@ -30,9 +28,9 @@ public class HUD : MonoBehaviour
     private static bool gameIsPaused = false;
 
     public GameObject pauseButton;
-
-    [SerializeField] private Text[] scoreText;  //тут хранятся текстовые поля очков
-    //[SerializeField] private TMP_Text[] scoreText;
+    
+    //тут хранятся текстовые поля очков:
+    [SerializeField] private TMP_Text[] scoreText = null;
 
     int score = 0;  //переменная для подсчёта очков
 
@@ -43,12 +41,12 @@ public class HUD : MonoBehaviour
     public static HUD Instance { get => _instance; set => _instance = value; }
     public int Score { get => score; set => score = value; }
 
-    private void Awake()
+    private void Start()
     {
         if (_instance == null)
             _instance = this;
 
-        SetResolutions();
+        //SetResolutions();
 
         if (GameController.Instance.loadSceneFirstTime == false)
         {
@@ -135,7 +133,6 @@ public class HUD : MonoBehaviour
     public void ExitPressed()      //метод для выхода из сцены
     {
         Application.Quit();
-        Debug.Log("Exit!");
     }
 
     public void MenuPressed()

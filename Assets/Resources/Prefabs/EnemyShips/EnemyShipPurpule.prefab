@@ -135,7 +135,7 @@ MonoBehaviour:
     type: 3}
   lazerEnemyR: {fileID: 2405604862502072911}
   lazerEnemyL: {fileID: 7981094194295765418}
-  shootDelay: 1.6
+  shootDelay: 1.7
 --- !u!1 &2405604862502072911
 GameObject:
   m_ObjectHideFlags: 0

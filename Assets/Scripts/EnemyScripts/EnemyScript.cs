@@ -44,21 +44,19 @@ public class EnemyScript : MonoBehaviour
         {
             return;
         }
-
-        if (other.tag == "Shield")  //если на игроке щит
+        else if (other.tag == "Shield")  //если на игроке щит
         {
             GameObject.FindGameObjectWithTag("Shield").SetActive(false);  //дезактивирую щит
             Destroy(gameObject);  //уничтожаю вражеский корабль
             Instantiate(EnemyExplosions, transform.position, Quaternion.identity);  //создаём взрыв вражеского корабля
         }
-
-        //взрыв корабля игрока
-        if (other.tag == "Player")
+        else if (other.tag == "Player")          //взрыв корабля игрока
         {
             Instantiate(EnemyExplosions, other.transform.position, transform.rotation);
             Destroy(other.gameObject);  //чничтожаем то с чем столкнулся вражеский корабль (лазерный выстрел или сам игрок)
             Destroy(gameObject);  //уничтожаем вражеский корабль
             HUD.Instance.ShowWindow(HUD.Instance.levelLoseWindow);
+            ObjectsHandler.objRef.Remove("BossEnemy");  //когда игрок уничтожен, удаляю босса из коллекции
         }
         else
         {

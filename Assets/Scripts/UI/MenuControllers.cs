@@ -31,7 +31,7 @@ public class MenuControllers : MonoBehaviour
         
         GameController.Instance.State = GameState.Play;
 
-        SetResolutions();
+        //SetResolutions();
 
         if (GameController.Instance.loadSceneFirstTime == false)
         {
