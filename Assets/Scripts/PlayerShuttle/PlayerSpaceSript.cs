@@ -24,18 +24,20 @@ public class PlayerSpaceSript : MonoBehaviour
     private float positionX, positionY, positionZ;
 
     //управление с помощью джойстика:
-    Joystick joystick;  //переменная в которой хранится джойстик управления
+    [SerializeField] Joystick joystick = null;  //переменная в которой хранится джойстик управления
     private float moveHorizontal, moveVertical;
     public float speedJoystick;  //объявление переменной скорости корабля, её можно менять в самом юнити
+    public static bool joystickControl = false;
+    public static bool JoystickControl { get => joystickControl; set => joystickControl = value; }
 
     //управление с помощью акселирометра:
     public float speedAcceleration;  //скорость движения коробля при управлении через акселерометр
-    public Quaternion callibrateRotation;
+    Quaternion callibrateRotation;
+    public static bool accelerationControl = false;
+    public static bool AccelerationControl { get => accelerationControl; set => accelerationControl = value; }
 
     void Start()
     {
-        joystick = FindObjectOfType<VariableJoystick>();
-
         ship = GetComponent<Rigidbody>();  //доступ к кораблю (компоненту) и присваивание к переменной данные
 
         moveHorizontal = 0f;
@@ -46,10 +48,18 @@ public class PlayerSpaceSript : MonoBehaviour
 
     void FixedUpdate()
     {
-        AccelerationMovment();
-        //MovementShipAcceleration();
-        
-        //MovementShipJoystick();
+        //условие для движения с помощью акселерометра:
+        if (accelerationControl)
+        {
+            AccelerationMovment();
+            //MovementShipAcceleration();
+        }
+
+        //условие для движения с помощью джойстика:
+        if (joystickControl)
+        {
+            MovementShipJoystick();
+        }
     }
 
     void AreaLimitation()
@@ -82,7 +92,7 @@ public class PlayerSpaceSript : MonoBehaviour
         return fixedAcceleration;
     }
 
-    void AccelerationMovment()
+    void AccelerationMovment()  //метод движения через акселерометр
     {
         //проверка положения телефона в пространстве:
         Vector3 accelerationRaw = Input.acceleration;
@@ -92,24 +102,22 @@ public class PlayerSpaceSript : MonoBehaviour
 
         ship.rotation = Quaternion.Euler(ship.velocity.z * tilt, 0, -ship.velocity.x * tilt);  //реализация наклона по осям
 
-        ship.velocity = new Vector3(acceleration.x, 0f, acceleration.y) * speedJoystick;  //передвижение
+        ship.velocity = new Vector3(acceleration.x, 0f, acceleration.y) * speedAcceleration;  //передвижение
 
         AreaLimitation();
     }
 
-    private void MovementShipAcceleration()
+    private void MovementShipAcceleration()  //движение через акселерометр
     {
         Vector3 direction = Vector3.zero;
 
-        direction.x = -Input.acceleration.y;
-        direction.z = Input.acceleration.x;
+        direction.x = Input.acceleration.x;
+        direction.z = Input.acceleration.y;
 
         if (direction.sqrMagnitude > 1)
             direction.Normalize();
 
-        //direction *= Time.deltaTime;
-
-        ship.velocity = direction * speedJoystick;
+        ship.velocity = direction * speedAcceleration;
         
         //настройка наклона коробля при поворотах и движений вперёд и назад
         ship.rotation = Quaternion.Euler(ship.velocity.z * tilt, 0, -ship.velocity.x * tilt);  //реализация наклона по осям

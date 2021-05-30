@@ -1422,6 +1422,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3373602133063646084, guid: 71dbc8054ee63f8468e5d3b456985897,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1934782981421053672}
+    - target: {fileID: 3373602133063646084, guid: 71dbc8054ee63f8468e5d3b456985897,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MainGunShoot
+      objectReference: {fileID: 0}
     - target: {fileID: 3699079169858481518, guid: 71dbc8054ee63f8468e5d3b456985897,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1430,6 +1440,11 @@ PrefabInstance:
     - target: {fileID: 3699079169858481518, guid: 71dbc8054ee63f8468e5d3b456985897,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4300271969597480969, guid: 71dbc8054ee63f8468e5d3b456985897,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5011113162245819548, guid: 71dbc8054ee63f8468e5d3b456985897,
@@ -1497,6 +1512,31 @@ PrefabInstance:
       propertyPath: m_Alpha
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6386921126523200222, guid: 71dbc8054ee63f8468e5d3b456985897,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6386921126523200222, guid: 71dbc8054ee63f8468e5d3b456985897,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6386921126523200222, guid: 71dbc8054ee63f8468e5d3b456985897,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6386921126523200222, guid: 71dbc8054ee63f8468e5d3b456985897,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1934782981421053672}
+    - target: {fileID: 6386921126523200222, guid: 71dbc8054ee63f8468e5d3b456985897,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AuxiliaryGunShoot
+      objectReference: {fileID: 0}
     - target: {fileID: 6641507028961117207, guid: 71dbc8054ee63f8468e5d3b456985897,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -1557,6 +1597,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 1452872133}
+    - target: {fileID: 6767545432518519565, guid: 71dbc8054ee63f8468e5d3b456985897,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6923203612092691968, guid: 71dbc8054ee63f8468e5d3b456985897,
         type: 3}
       propertyPath: m_AnchorMin.x

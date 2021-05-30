@@ -48029,9 +48029,8 @@ MonoBehaviour:
   shotDelay: 0.8
   damageLazer: 5
   damageAuxiliaryLazer: 2
-  speedJoystick: 30
-  speedAcceleration: 40
-  callibrateRotation: {x: 0, y: 0, z: 0, w: 0}
+  speedJoystick: 35
+  speedAcceleration: 60
 --- !u!1 &2118822872403526092
 GameObject:
   m_ObjectHideFlags: 0

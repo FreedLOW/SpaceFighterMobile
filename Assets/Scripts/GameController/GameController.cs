@@ -3,8 +3,12 @@
 //энумератор для контроля состояния игры
 public enum GameState { Play, Pause}
 
+public enum ControlManagement { Joystick, Acceleration}
+
 public class GameController : MonoBehaviour
 {
+    private ControlManagement controlManagement;  //контроль управления кораблём
+
     private int score;
 
     private GameState state;  //контроль игрового состояния
@@ -44,6 +48,25 @@ public class GameController : MonoBehaviour
             }
             state = value;
         } 
+    }
+
+    public ControlManagement ControlManagement
+    {
+        get => controlManagement;
+        set
+        {
+            if (value == ControlManagement.Joystick)
+            {
+                PlayerSpaceSript.JoystickControl = true;
+                PlayerSpaceSript.accelerationControl = false;
+            }
+            else if (value == ControlManagement.Acceleration)
+            {
+                PlayerSpaceSript.AccelerationControl = true;
+                PlayerSpaceSript.joystickControl = false;
+            }
+            controlManagement = value;
+        }
     }
 
     private void Awake()

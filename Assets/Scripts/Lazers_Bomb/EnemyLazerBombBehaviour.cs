@@ -20,6 +20,8 @@ public class EnemyLazerBombBehaviour : MonoBehaviour
 
         if (!boss.activeInHierarchy)
             thisRgb.velocity = Vector3.back * speed;
+
+        Destroy(gameObject, 5f);
     }
 
     private void FixedUpdate()

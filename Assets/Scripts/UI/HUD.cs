@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 using TMPro;
+using System.Collections;
 
 public class HUD : MonoBehaviour
 {
@@ -25,12 +26,20 @@ public class HUD : MonoBehaviour
     public CanvasGroup gameMenu;
     public CanvasGroup settingsMenu;
 
-    private static bool gameIsPaused = false;
+    //private static bool gameIsPaused = false;
 
     public GameObject pauseButton;
     
     //тут хранятся текстовые поля очков:
     [SerializeField] private TMP_Text[] scoreText = null;
+
+    public Toggle joystickToggle;
+    public GameObject joystickPanel = null;
+    public GameObject joystickControl = null;
+
+    public Toggle accelerationToggle;
+    public GameObject accelerationPanel = null;
+    public GameObject accelerationControl = null;
 
     int score = 0;  //переменная для подсчёта очков
 
@@ -47,6 +56,11 @@ public class HUD : MonoBehaviour
             _instance = this;
 
         //SetResolutions();
+        
+        if (PlayerSpaceSript.AccelerationControl)
+            accelerationPanel.SetActive(true);
+        else if (PlayerSpaceSript.JoystickControl)
+            joystickPanel.SetActive(true);
 
         if (GameController.Instance.loadSceneFirstTime == false)
         {
@@ -54,23 +68,68 @@ public class HUD : MonoBehaviour
             m_SoundSlider.value = PlayerPrefs.GetFloat("SoundVolume");
             m_MusicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
         }
+
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+            StartCoroutine(ShowControl());
     }
 
     private void Update()
     {
         CountTime();
+    }
 
-        if (Input.GetKeyDown(KeyCode.Escape) && settingsMenu.alpha == 0)
+    IEnumerator ShowControl()
+    {
+        GameController.Instance.State = GameState.Pause;
+
+        if (PlayerSpaceSript.accelerationControl)
         {
-            if (gameIsPaused)
+            accelerationControl.SetActive(true);
+            yield return new WaitForSecondsRealtime(2f);  //делаю задержку в 2 секунды реального времени, это игнорирует time.timescale         
+            accelerationControl.SetActive(false);
+            GameController.Instance.State = GameState.Play;
+        }
+        else if (PlayerSpaceSript.joystickControl)
+        {
+            joystickControl.SetActive(true);
+            yield return new WaitForSecondsRealtime(2f);
+            joystickControl.SetActive(false);
+            GameController.Instance.State = GameState.Play;
+        }
+    }
+
+    public void ControlJoystick(bool controlJoystick)
+    {
+        controlJoystick = joystickToggle.isOn;
+
+        if (controlJoystick)
+        {
+            GameController.Instance.ControlManagement = ControlManagement.Joystick;
+            
+            accelerationToggle.isOn = false;
+
+            if (joystickPanel.activeInHierarchy == false)
             {
-                HideWindow(gameMenu);
-                gameIsPaused = false;
+                joystickPanel.SetActive(true);
+                accelerationPanel.SetActive(false);
             }
-            else
+        }
+    }
+
+    public void ControlAceleration(bool controlAceleration)
+    {
+        controlAceleration = accelerationToggle.isOn;
+
+        if (controlAceleration)
+        {
+            GameController.Instance.ControlManagement = ControlManagement.Acceleration;
+
+            joystickToggle.isOn = false;
+
+            if (accelerationPanel.activeInHierarchy == false)
             {
-                ShowWindow(gameMenu);
-                gameIsPaused = true;
+                accelerationPanel.SetActive(true);
+                joystickPanel.SetActive(false);
             }
         }
     }
@@ -103,9 +162,8 @@ public class HUD : MonoBehaviour
         Score += scoreAdd;  //тут идёт подсчёт очков, т.е. колличество убитых противников
         for (int i = 0; i < scoreText.Length; i++)
         {
-            scoreText[i].text = "Score: " + Score;  //тут обновляем интерфейс в игре, т.е. постоянно меняется score, колличество набраных очков
-        } 
-        //scoreLabel.text = "Score: " + score.ToString();
+            scoreText[i].text = "Score: " + Score.ToString();  //тут обновляем интерфейс в игре, т.е. постоянно меняется score, колличество набраных очков
+        }
     }
 
     public void ShowWindow(CanvasGroup window)

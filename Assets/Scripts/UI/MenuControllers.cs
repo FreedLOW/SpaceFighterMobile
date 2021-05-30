@@ -18,6 +18,10 @@ public class MenuControllers : MonoBehaviour
 
     public Slider m_SoundSlider;  //тут хранится слайдер регулировки громкости звуков
 
+    public Toggle joystickToggle;
+
+    public Toggle accelerationToggle;
+
     Resolution[] resolutions;  //массив в котором хранятся все возможные разрешения экранов
 
     static private MenuControllers _instance;
@@ -38,6 +42,11 @@ public class MenuControllers : MonoBehaviour
             //загружаю сохранённые значения громкости:
             m_SoundSlider.value = PlayerPrefs.GetFloat("SoundVolume");
             m_MusicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
+        }
+
+        if (joystickToggle.isOn)
+        {
+            PlayerSpaceSript.joystickControl = true;
         }
     }
 
@@ -60,6 +69,30 @@ public class MenuControllers : MonoBehaviour
             {
                 currentResolutionIndex = i;
             }
+        }
+    }
+
+    public void ControlJoystick(bool controlJoystick)
+    {
+        controlJoystick = joystickToggle.isOn;
+
+        if (controlJoystick)
+        {
+            GameController.Instance.ControlManagement = ControlManagement.Joystick;
+           
+            accelerationToggle.isOn = false;
+        }
+    }
+
+    public void ControlAceleration(bool controlAceleration)
+    {
+        controlAceleration = accelerationToggle.isOn;
+
+        if (controlAceleration)
+        {
+            GameController.Instance.ControlManagement = ControlManagement.Acceleration;
+
+            joystickToggle.isOn = false;
         }
     }
 
